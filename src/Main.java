@@ -60,6 +60,6 @@ public class Main {
         System.out.println("Cancelled appointment: " + a1);
 
         System.out.println();
-        System.out.println("=== Program Complete ===");
+        System.out.println("===Program Complete===");
     }
 }
