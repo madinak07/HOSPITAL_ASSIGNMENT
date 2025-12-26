@@ -45,7 +45,7 @@ public class Main {
         System.out.println(a1);
         System.out.println();
 
-        System.out.println("--- TESTING METHODS ---");
+        System.out.println("---TESTING METHODS---");
 
         System.out.println("Is " + p1.getFullName() + " minor? " + p1.isMinor());
         System.out.println("Age category: " + p2.getAgeType());
