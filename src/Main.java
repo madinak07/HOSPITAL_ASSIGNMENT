@@ -1,65 +1,140 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
+
+    private static ArrayList<Patient> patients = new ArrayList<>();
+    private static ArrayList<Doctor> doctors = new ArrayList<>();
+    private static ArrayList<Appointment> appointments = new ArrayList<>();
+
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
 
-        System.out.println("=== Hospital Management System ===");
-        System.out.println();
+        // Test data
+        patients.add(new Patient(1, "Aruzhan", 20, "O+"));
+        doctors.add(new Doctor(101, "Dr. Smith", "Cardiologist", 10));
+        appointments.add(new Appointment(1001, "Aruzhan", "Dr. Smith", "2026-01-10"));
 
-        // Patients
-        Patient p1 = new Patient(1, "Aruzhan Kim", 17, "O+");
-        Patient p2 = new Patient(2, "Dias Nurlan", 45, "A+");
+        boolean running = true;
 
-        // Doctors
-        Doctor d1 = new Doctor(101, "Dr. Smith", 12, "Surgeon");
-        Doctor d2 = new Doctor(102, "Dr. Brown", 5, "Therapist");
+        while (running) {
+            showMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // IMPORTANT
 
-        // Appointment
-        Appointment a1 = new Appointment(1001, "Aruzhan Kim", "Dr. Smith", "12.10.2025");
+            switch (choice) {
+                case 1 -> addPatient();
+                case 2 -> viewPatients();
+                case 3 -> addDoctor();
+                case 4 -> viewDoctors();
+                case 5 -> addAppointment();
+                case 6 -> viewAppointments();
+                case 0 -> {
+                    System.out.println("Exiting system...");
+                    running = false;
+                }
+                default -> System.out.println("Invalid choice");
+            }
+        }
+    }
 
-        System.out.println("--- PATIENTS ---");
-        System.out.println(p1);
-        System.out.println(p2);
-        System.out.println();
+    private static void showMenu() {
+        System.out.println("\n=== HOSPITAL SYSTEM ===");
+        System.out.println("1. Add Patient");
+        System.out.println("2. View All Patients");
+        System.out.println("3. Add Doctor");
+        System.out.println("4. View All Doctors");
+        System.out.println("5. Add Appointment");
+        System.out.println("6. View All Appointments");
+        System.out.println("0. Exit");
+        System.out.print("Enter choice: ");
+    }
 
-        System.out.println("--- DOCTORS ---");
-        System.out.println(d1);
-        System.out.println(d2);
-        System.out.println();
+    private static void addPatient() {
+        System.out.print("Enter patient ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.println("--- APPOINTMENTS ---");
-        System.out.println(a1);
-        System.out.println();
+        System.out.print("Enter full name: ");
+        String name = scanner.nextLine();
 
-        System.out.println("--- TESTING GETTERS ---");
-        System.out.println("Patient name: " + p1.getFullName());
-        System.out.println("Doctor specialization: " + d1.getSpecialization());
-        System.out.println("Appointment date: " + a1.getDate());
-        System.out.println();
+        System.out.print("Enter age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.println("--- TESTING SETTERS ---");
-        p2.setAge(50);
-        d2.setExperienceYears(10);
-        a1.setDate("15.10.2025");
+        System.out.print("Enter blood type: ");
+        String blood = scanner.nextLine();
 
-        System.out.println(p2);
-        System.out.println(d2);
-        System.out.println(a1);
-        System.out.println();
+        patients.add(new Patient(id, name, age, blood));
+        System.out.println("Patient added successfully!");
+    }
 
-        System.out.println("---TESTING METHODS---");
+    private static void viewPatients() {
+        if (patients.isEmpty()) {
+            System.out.println("No patients found.");
+            return;
+        }
+        for (Patient p : patients) {
+            System.out.println(p);
+        }
+    }
 
-        System.out.println("Is " + p1.getFullName() + " minor? " + p1.isMinor());
-        System.out.println("Age category: " + p2.getAgeType());
+    private static void addDoctor() {
+        System.out.print("Enter doctor ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.println("Is doctor experienced? " + d1.isExperienced());
-        System.out.println("Can perform surgery? " + d1.canPerformSurgery());
+        System.out.print("Enter full name: ");
+        String name = scanner.nextLine();
 
-        a1.reschedule("20.10.2025");
-        System.out.println("Rescheduled appointment: " + a1);
+        System.out.print("Enter specialization: ");
+        String spec = scanner.nextLine();
 
-        a1.cancel();
-        System.out.println("Cancelled appointment: " + a1);
+        System.out.print("Enter experience years: ");
+        int exp = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.println();
-        System.out.println("===Program Complete===");
+        doctors.add(new Doctor(id, name, spec, exp));
+        System.out.println("Doctor added successfully!");
+    }
+
+    private static void viewDoctors() {
+        if (doctors.isEmpty()) {
+            System.out.println("No doctors found.");
+            return;
+        }
+        for (Doctor d : doctors) {
+            System.out.println(d);
+        }
+    }
+
+    private static void addAppointment() {
+        System.out.print("Enter appointment ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter patient name: ");
+        String patient = scanner.nextLine();
+
+        System.out.print("Enter doctor name: ");
+        String doctor = scanner.nextLine();
+
+        System.out.print("Enter date: ");
+        String date = scanner.nextLine();
+
+        appointments.add(new Appointment(id, patient, doctor, date));
+        System.out.println("Appointment added successfully!");
+    }
+
+    private static void viewAppointments() {
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+            return;
+        }
+        for (Appointment a : appointments) {
+            System.out.println(a);
+        }
     }
 }
+

@@ -1,21 +1,15 @@
 public class Doctor {
+
     private int doctorID;
     private String fullName;
-    private int experienceYears;
     private String specialization;
+    private int experienceYears;
 
-    public Doctor(int doctorID, String fullName, int experienceYears, String specialization) {
+    public Doctor(int doctorID, String fullName, String specialization, int experienceYears) {
         this.doctorID = doctorID;
-        this.fullName = fullName;
-        this.experienceYears = experienceYears;
+        setFullName(fullName);
         this.specialization = specialization;
-    }
-
-    public Doctor() {
-        this.doctorID = 0;
-        this.fullName = "Unknown";
-        this.experienceYears = 0;
-        this.specialization = "Unknown";
+        setExperienceYears(experienceYears);
     }
 
     public int getDoctorID() {
@@ -26,47 +20,34 @@ public class Doctor {
         return fullName;
     }
 
-    public int getExperienceYears() {
-        return experienceYears;
-    }
-
     public String getSpecialization() {
         return specialization;
     }
 
-    public void setDoctorID(int doctorID) {
-        this.doctorID = doctorID;
+    public int getExperienceYears() {
+        return experienceYears;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public void setExperienceYears(int experienceYears) {
-        this.experienceYears = experienceYears;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
-
-    public String isExperienced() {
-        if(experienceYears >= 10) {
-            return "Great experienced doctor";
+        if (fullName != null && !fullName.trim().isEmpty()) {
+            this.fullName = fullName;
         } else {
-            return "Good beginner doctor";
+            this.fullName = "Unknown";
         }
     }
 
-    public boolean canPerformSurgery() {
-        return specialization.equalsIgnoreCase("Surgeon");
+    public void setExperienceYears(int experienceYears) {
+        if (experienceYears >= 0) {
+            this.experienceYears = experienceYears;
+        } else {
+            this.experienceYears = 0;
+        }
     }
 
     public String toString() {
-        return "Doctor{" +
-                "doctorID=" + doctorID +
-                ", fullName=" + fullName + '\'' +
-                ", specialization=" + specialization + '\'' +
-                '}';
+        return "Doctor ID: " + doctorID +
+                ", Name: " + fullName +
+                ", Specialization: " + specialization +
+                ", Experience: " + experienceYears + " years";
     }
 }
